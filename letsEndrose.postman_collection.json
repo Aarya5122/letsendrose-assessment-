@@ -142,7 +142,7 @@
 	"variable": [
 		{
 			"key": "DOMAIN",
-			"value": "http://localhost:4000/api1",
+			"value": "https://letsendrose-assessment-user-auth.vercel.app/api",
 			"type": "string"
 		}
 	]
