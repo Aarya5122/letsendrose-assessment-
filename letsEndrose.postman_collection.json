@@ -142,7 +142,7 @@
 	"variable": [
 		{
 			"key": "DOMAIN",
-			"value": "https://letsendroseuserauth.onrender.com/api",
+			"value": "https://letsendroseuserauth.onrender.com/api1",
 			"type": "string"
 		}
 	]
