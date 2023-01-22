@@ -2,7 +2,7 @@ const User = require("../models/userSchema.model");
 const CustomError = require("../utils/CustomError");
 const cookieOptions = require("../utils/cookieOptions");
 const asyncHandler = require("../utils/asyncHandler");
-var CryptoJS = require("crypto-js");
+const CryptoJS = require("crypto-js");
 
 const signUp = asyncHandler(async (req, res) => {
   const { email, mobileNumber, fullname, password } = req.body;
@@ -66,12 +66,11 @@ const signUp = asyncHandler(async (req, res) => {
 
   try {
     const user = await User.create({
-      email:uemail,
-      mobileNumber:umobileNumber,
-      fullname:ufullname,
-      password:upassword,
+      email: uemail,
+      mobileNumber: umobileNumber,
+      fullname: ufullname,
+      password: upassword,
     });
-
 
     const token = user.generateJWTToken();
     user.password = undefined;

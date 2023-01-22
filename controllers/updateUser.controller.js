@@ -2,7 +2,7 @@ const User = require("../models/userSchema.model");
 const CustomError = require("../utils/CustomError");
 const cookieOptions = require("../utils/cookieOptions");
 const asyncHandler = require("../utils/asyncHandler");
-var CryptoJS = require("crypto-js");
+const CryptoJS = require("crypto-js");
 
 const updateUser = asyncHandler(async (req, res) => {
   const { email, mobileNumber, fullname } = req.body;
@@ -42,7 +42,10 @@ const updateUser = asyncHandler(async (req, res) => {
   });
 
   if (updationObject.email) {
-    updationObject.email = CryptoJS.AES.encrypt(email, process.env.ENCRYPTION_KEY).toString();
+    updationObject.email = CryptoJS.AES.encrypt(
+      email,
+      process.env.ENCRYPTION_KEY
+    ).toString();
   }
   if (updationObject.fullname) {
     updationObject.fullname = CryptoJS.AES.encrypt(
@@ -59,7 +62,6 @@ const updateUser = asyncHandler(async (req, res) => {
 
   try {
     const user = await User.findByIdAndUpdate(req.user._id, updationObject);
-    console.log(user);
     const token = user.generateJWTToken();
     user.password = undefined;
 
