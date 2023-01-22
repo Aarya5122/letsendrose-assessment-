@@ -4,7 +4,7 @@
   "description": "Building a user authentication and management application",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "keywords": [
     "Express",
