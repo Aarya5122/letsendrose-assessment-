@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullname\":\"Nirmala\",\r\n    \"email\":\"nirmala@adevs.in\",\r\n    \"password\":\"12345678\",\r\n    \"mobileNumber\":\"8123033857\"\r\n}",
+							"raw": "{\r\n    \"fullname\":\"test\",\r\n    \"email\":\"test@adevs.in\",\r\n    \"password\":\"12345678\",\r\n    \"mobileNumber\":\"1234567890\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,12 +24,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/user",
+							"raw": "{{DOMAIN}}/signup",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
-								"user"
+								"signup"
 							]
 						}
 					},
@@ -42,7 +42,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"nirmala@adevs.in\",\r\n    \"password\":\"1234567890\"\r\n}",
+							"raw": "{\r\n    \"email\":\"test@adevs.in\",\r\n    \"password\":\"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -142,7 +142,7 @@
 	"variable": [
 		{
 			"key": "DOMAIN",
-			"value": "https://letsendrose-assessment-user-auth.vercel.app/api",
+			"value": "https://letsendroseuserauth.onrender.com/api",
 			"type": "string"
 		}
 	]
