@@ -9,7 +9,6 @@ const updateUser = require("../controllers/updateUser.controller");
 
 router.route("/signup").post(signUp)
 router.route("/login").post(login);
-router.route("/").get((req,res)=>{res.send("Working")});
 
 router.route("/user/auth/reset/password").put(isLoggedIn, passwordReset);
 router.route("/user").put(isLoggedIn, updateUser);
