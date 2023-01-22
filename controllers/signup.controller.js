@@ -2,6 +2,7 @@ const User = require("../models/userSchema.model");
 const CustomError = require("../utils/CustomError");
 const cookieOptions = require("../utils/cookieOptions");
 const asyncHandler = require("../utils/asyncHandler");
+var CryptoJS = require("crypto-js");
 
 const signUp = asyncHandler(async (req, res) => {
   const { email, mobileNumber, fullname, password } = req.body;
@@ -46,13 +47,32 @@ const signUp = asyncHandler(async (req, res) => {
     throw new CustomError("User already exist", 400);
   }
 
+  const uemail = CryptoJS.AES.encrypt(
+    email,
+    process.env.ENCRYPTION_KEY
+  ).toString();
+  const umobileNumber = CryptoJS.AES.encrypt(
+    mobileNumber,
+    process.env.ENCRYPTION_KEY
+  ).toString();
+  const ufullname = CryptoJS.AES.encrypt(
+    fullname,
+    process.env.ENCRYPTION_KEY
+  ).toString();
+  const upassword = CryptoJS.AES.encrypt(
+    password,
+    process.env.ENCRYPTION_KEY
+  ).toString();
+
   try {
     const user = await User.create({
-      email,
-      mobileNumber,
-      fullname,
-      password,
+      email:uemail,
+      mobileNumber:umobileNumber,
+      fullname:ufullname,
+      password:upassword,
     });
+
+
     const token = user.generateJWTToken();
     user.password = undefined;
 

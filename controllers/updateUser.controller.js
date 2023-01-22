@@ -2,12 +2,12 @@ const User = require("../models/userSchema.model");
 const CustomError = require("../utils/CustomError");
 const cookieOptions = require("../utils/cookieOptions");
 const asyncHandler = require("../utils/asyncHandler");
-const { json } = require("express");
+var CryptoJS = require("crypto-js");
 
 const updateUser = asyncHandler(async (req, res) => {
   const { email, mobileNumber, fullname } = req.body;
 
-  const updationObject = {};
+  let updationObject = {};
 
   /**
    * Check if is a particular field received
@@ -23,7 +23,6 @@ const updateUser = asyncHandler(async (req, res) => {
     enumerable: true,
   });
 
-
   if (mobileNumber && typeof mobileNumber !== "string") {
     throw new CustomError("mobile number should be of type string", 400);
   }
@@ -33,7 +32,6 @@ const updateUser = asyncHandler(async (req, res) => {
     enumerable: true,
   });
 
-
   if (fullname && typeof fullname !== "string") {
     throw new CustomError("fullname should be of type string", 0);
   }
@@ -42,6 +40,22 @@ const updateUser = asyncHandler(async (req, res) => {
     value: fullname,
     enumerable: true,
   });
+
+  if (updationObject.email) {
+    updationObject.email = CryptoJS.AES.encrypt(email, process.env.ENCRYPTION_KEY).toString();
+  }
+  if (updationObject.fullname) {
+    updationObject.fullname = CryptoJS.AES.encrypt(
+      fullname,
+      process.env.ENCRYPTION_KEY
+    ).toString();
+  }
+  if (updationObject.mobileNumber) {
+    updationObject.mobileNumber = CryptoJS.AES.encrypt(
+      mobileNumber,
+      process.env.ENCRYPTION_KEY
+    ).toString();
+  }
 
   try {
     const user = await User.findByIdAndUpdate(req.user._id, updationObject);
@@ -55,7 +69,7 @@ const updateUser = asyncHandler(async (req, res) => {
       success: true,
       message: "User updated successfully",
       token,
-      user
+      user,
     });
   } catch (error) {
     throw new CustomError(`${error.message}`, 500);
